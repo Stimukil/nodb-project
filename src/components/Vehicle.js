@@ -13,16 +13,17 @@ class Vehicle extends Component {
     checkVehicle() {}
 
     render(){
+        console.log(this.props.ship)
         return(
-            <div>
+            <div style={{height: "100px", width: '100px', backgroundColor: 'blue'}}>
                 <p>{this.props.ship.name}</p>
-
-                onClick={() => {
+                {/* 
+                {onClick={() => {
                     this.props.findShips({
                         name: this.props.ship.name,
 
                     })            
-                }}
+                }}} */}
             </div>
         )
     }

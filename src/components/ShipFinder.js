@@ -7,29 +7,46 @@ class ShipFinder extends Component {
         super(props) 
 
         this.state = {
-            availableShips: [],
+            availableShips: []
         }
     }
 
+// move to itineray
 componentDidMount() {
-    axios.get('/api/swapi').then(res => {
+    
+    axios.get('/api/avail-ships').then(res => {
+        console.log(res)
         this.setState({
             availableShips: res.data
         })
     })
 }
 
+    shipFinder = () => {
+        axios.get('/api/random-ship').then(res => {
+            console.log(res)
+            this.setState({
+               availableShips: [...this.state.availableShips,res.data[0]]
+            })
+        })
+    }
+
 render(){
 
+    //move to itinerary
     const shipsList = this.state.availableShips.map(element => {
         return <Vehicle key={element.id}
-        addShip={this.props.findShips}
+        // addShip={this.props.findShips}
         ship={element} />
     })
     
     return (
         <div>
-           {shipsList}
+        <div className='shipsList' onClick={()=>{
+        this.shipFinder()
+        }}> 
+        </div>
+        {shipsList}
         </div>
     )
 }

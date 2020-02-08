@@ -1,10 +1,26 @@
+const axios = require('axios')
 const foundShips = []
+
 
 let id = 0
 
 module.exports = {
+    availableShips: (req, res) => {
+        const rand = Math.ceil(Math.random() * 15)
+
+        axios.get(`https://swapi.co/api/starships/${rand}`).then(response => {
+           foundShips.push(response.data)
+            res.status(200).send(foundShips)
+        }).catch(err=>console.log(err))
+    },
     getFoundShips: (req, res) => {
         res.status(200).send(foundShips)
+    },
+
+    //get random ship
+    getRandomShips: (req, res) => {
+
+        res.status(200).send(this.getRandomShips)
     },
 
     findShips: (req, res) => {

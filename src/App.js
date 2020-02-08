@@ -26,16 +26,20 @@ class App extends Component {
 }
 
 componentDidMount() {
-  axios.get('/api/swapi').then(res => {
+  axios.get('/api/avail-ships').then(res => {
     this.setState({
       foundShips: res.data,
+    })
+  })
+  axios.get('/api/avail-planets').then(res => {
+    this.setState({
       foundPlanets: res.data,
     })
   })
 }
 
 addShip(ship) {
-  axios.post('/api/swapi', {ship}).then(res => {
+  axios.post('/api/avail-ships', {ship}).then(res => {
     this.setState({
       foundShips: res.data
     })
@@ -43,7 +47,7 @@ addShip(ship) {
 }
 
 addPlanet(planet) {
-  axios.post('/api/swapi', {planet}).then(res => {
+  axios.post('/api/avail-planets', {planet}).then(res => {
     this.setState({
       foundPlanets: res.data
     })
@@ -51,7 +55,7 @@ addPlanet(planet) {
 }
 
 saveShipName(id, newShipName) {
-  axios.put(`/api/swapi/${id}`, {shipName: newShipName}).then(res => {
+  axios.put(`/api/ships/${id}`, {shipName: newShipName}).then(res => {
     this.setState({
       foundShips: res.data
     })
@@ -59,7 +63,7 @@ saveShipName(id, newShipName) {
 }
 
 savePlanetName(id, newPlanetName) {
-  axios.put(`/api/swapi/${id}`, {planetName: newPlanetName}).then(res => {
+  axios.put(`/api/planets/${id}`, {planetName: newPlanetName}).then(res => {
     this.setState({
       foundPlanets: res.data
     })
@@ -67,7 +71,7 @@ savePlanetName(id, newPlanetName) {
 }
 
 removeShip(id) {
-  axios.delete(`/api/swapi/${id}`).then(res => {
+  axios.delete(`/api/ships/${id}`).then(res => {
     this.setState({
       foundShips: res.data
     })
@@ -75,7 +79,7 @@ removeShip(id) {
 }
 
 removePlanet(id) {
-  axios.delete(`/api/swapi/${id}`).then(res => {
+  axios.delete(`/api/planets/${id}`).then(res => {
     this.setState({
       foundPlanets: res.data 
     })

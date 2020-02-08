@@ -28,7 +28,7 @@ render(){
     })
 
     return (
-        <div>
+        <div className='planetsList'>
             {planetsList}
         </div>
     )

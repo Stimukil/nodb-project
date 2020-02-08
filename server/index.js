@@ -12,10 +12,16 @@ app.use(express.json())
 // app.use(cors())
 
 app.get('/api/avail-ships', shipsCtrl.getFoundShips)
+// endpoint for random ship
+app.get('/api/random-ship', shipsCtrl.availableShips)
+
 app.get('/api/avail-planets', planetsCtrl.getFoundPlanets)
+// endpoint for random planet
+//app.get('/api/random-planet', planetsCtrl.getRandomPlanets)
 
 app.get('/api/ships', vehicleCtrl.availableShips)
 app.get('/api/planets', destinationCtrl.availablePlanets)
+
 app.post('/api/ships', vehicleCtrl.availableShips)
 app.post('/api/planets', destinationCtrl.availablePlanets)
 // app.put('/api/ships', vehicleCtrl.editShipName)
@@ -24,4 +30,4 @@ app.post('/api/planets', destinationCtrl.availablePlanets)
 // app.delete('/api/planets/:id', destinationCtrl.removePlanet)
 
 
-app.listen(PORT, () => console.log(`listening on port ${PORT}`))
+app.listen(PORT, () => console.log(`listening to Van Halen ${PORT}`))

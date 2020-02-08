@@ -1,6 +1,15 @@
 import React from 'react'
 import Ships from './Ships'
-// import Planets from './Planets'
+import Planets from './Planets'
+
+// componentDidMount() {    
+//         axios.get('/api/avail-ships').then(res => {
+//             console.log(res)
+//             this.setState({
+//                 availableShips: res.data
+//             })
+//         })
+//     }
 
 function Itinerary(props) {
     console.log(props)
@@ -12,15 +21,25 @@ function Itinerary(props) {
             ship={element}
             key={element.id}
             />
+            )
+        })
+        
+    const planetList = props.foundPlanets.map(element => {
+        return (
+            <Planets
+            savePlanetName={props.savePlanetName}
+            removePlanet={props.removePlanet}
+            planet={element}
+            key={element.id}
+            />
         )
     })
-
-    
+        
 
     return (
-        <div><h2>Your Travel Itinerary</h2>
-           {/* // {ship}
-           {planet} */}
+        <div><h2></h2>
+           {Ships}
+           {Planets}
         </div>
     )
 }
