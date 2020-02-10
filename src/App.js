@@ -7,6 +7,7 @@ import Itinerary from './components/Itinerary'
 import axios from 'axios';
 
 
+
 class App extends Component {
   constructor () {
     super ()
@@ -18,8 +19,8 @@ class App extends Component {
 
   this.addShip = this.addShip.bind(this)
   this.addPlanet = this.addPlanet.bind(this)
-  this.saveShipName = this.saveShipName.bind(this)
-  this.savePlanetName = this.savePlanetName.bind(this)
+  this.editShipName = this.editShipName.bind(this)
+  this.editPlanetName = this.editPlanetName.bind(this)
   this.removeShip = this.removeShip.bind(this)
   this.removePlanet = this.removePlanet.bind(this)
 
@@ -54,24 +55,27 @@ addPlanet(planet) {
   })
 }
 
-saveShipName(id, newShipName) {
-  axios.put(`/api/ships/${id}`, {shipName: newShipName}).then(res => {
+editShipName(name, newShipName) {
+  console.log(name)
+  axios.put(`/api/ships/${name}`, {name: newShipName}).then(res => {
     this.setState({
       foundShips: res.data
     })
   })
 }
 
-savePlanetName(id, newPlanetName) {
-  axios.put(`/api/planets/${id}`, {planetName: newPlanetName}).then(res => {
+editPlanetName(name, newPlanetName) {
+  console.log(name)
+  axios.put(`/api/planets/${name}`, {name: newPlanetName}).then(res => {
     this.setState({
       foundPlanets: res.data
     })
   })
 }
 
-removeShip(id) {
-  axios.delete(`/api/ships/${id}`).then(res => {
+removeShip(name) {
+  console.log(name)
+  axios.delete(`/api/ships/${name}`).then(res => {
     this.setState({
       foundShips: res.data
     })
@@ -79,6 +83,7 @@ removeShip(id) {
 }
 
 removePlanet(id) {
+  console.log(id)
   axios.delete(`/api/planets/${id}`).then(res => {
     this.setState({
       foundPlanets: res.data 
@@ -89,12 +94,13 @@ removePlanet(id) {
 render() {
   return (
     <div className="App">
+    
       <Header />
-      <ShipFinder findShips={this.findShips} />
-      <PlanetFinder findPlanets={this.findPlanets} />
+      <ShipFinder findShips={this.findShips} removeShip={this.removeShip} editShipName={this.editShipName} />
+      <PlanetFinder findPlanets={this.findPlanets} removePlanet={this.removePlanet} editPlanetName={this.editPlanetName}/>
       <Itinerary 
-      saveShipName={this.saveShipName}
-      savePlanetName={this.savePlanetName}
+      editShipName={this.editShipName}
+      editPlanetName={this.editPlanetName}
       removeShip={this.removeShip}
       removePlanet={this.removePlanet}
       addShip={this.state.addShip}

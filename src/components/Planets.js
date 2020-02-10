@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-// import { isCompositeComponent } from 'react-dom/test-utils'
+import { isCompositeComponent } from 'react-dom/test-utils'
 
 class Planets extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class Planets extends Component {
             userInputPlanet: '',
         }
 
-        // this.isEditingPlanets = false,
+        this.isEditingPlanets = this.isEditingPlanets.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
@@ -27,19 +27,21 @@ class Planets extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
         <div>
             {this.state.isEditingPlanets ? (
             <div>
                 <input onChange={this.handleChange} />
                     <button onClick={() => {
-                        this.props.savePlanetName(this.props.planet.id, this.state.userInputPlanet)
+                        this.props.editPlanetName(this.props.planet.name, this.state.userInputPlanet)
                         this.isEditingPlanets()
                     }}
                     >Save</button>
             </div>) : (
-                <p onDoubleClick={this.isEditingPlanets}>{this.props.savePlanetName}</p>)}
-                <button onClick={() => this.props.removePlanet(this.props.planet.id)}
+                <p onDoubleClick={this.isEditingPlanets}>{this.props.planet.name}</p>)}
+
+                <button onClick={() => this.props.removePlanet(this.props.planet.name)}
                 >Delete</button>
         </div>
         )

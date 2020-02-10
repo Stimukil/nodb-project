@@ -1,7 +1,6 @@
 const axios = require('axios')
 const foundShips = []
 
-
 let id = 0
 
 module.exports = {
@@ -10,16 +9,16 @@ module.exports = {
 
         axios.get(`https://swapi.co/api/starships/${rand}`).then(response => {
            foundShips.push(response.data)
-            res.status(200).send(foundShips)
+           res.status(200).send(foundShips)
         }).catch(err=>console.log(err))
     },
+
     getFoundShips: (req, res) => {
         res.status(200).send(foundShips)
     },
 
     //get random ship
     getRandomShips: (req, res) => {
-
         res.status(200).send(this.getRandomShips)
     },
 
@@ -34,23 +33,23 @@ module.exports = {
     },
 
     editShipName: (req, res) => {
-        const {id} = req.params
+        const {name: oldName} = req.params
         const {name} = req.body
 
         const index = foundShips.findIndex(element => {
-            return element.id === +id
+            return element.name === oldName
         })
-
+        console.log(name)
         foundShips[index].name = name
 
         res.status(200).send(foundShips)
     },
 
     removeShip: (req, res) => {
-        const {id} = req.params
+        const {name} = req.params
 
         const index = foundShips.findIndex(element => {
-            return element.id === +id
+            return element.name === name
         })
 
         foundShips.splice(index,  1)

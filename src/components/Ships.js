@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-// import { isCompositeComponent } from 'react-dom/test-utils'
+import { isCompositeComponent } from 'react-dom/test-utils'
 
 class Ships extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class Ships extends Component {
             userInputShip: '',
         }
 
-        // this.isEditingShips = false,
+        this.isEditingShips = this.isEditingShips.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
@@ -27,19 +27,21 @@ class Ships extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
         <div>
             {this.state.isEditingShips ? (
             <div>
                  <input onChange={this.handleChange} />
                     <button onClick={() => {
-                        this.props.saveShipName(this.props.ship.id, this.state.userInputShip)
+                        this.props.editShipName(this.props.ship.name, this.state.userInputShip)
                         this.isEditingShips()
                     }}
                     >Save</button>
             </div>) : (
-                <p onDoubleClick={this.isEditingShips}>{this.props.saveShipName}</p>)}
-                <button onClick={() => this.props.removeShip(this.props.ship.id)}
+                <p onDoubleClick={this.isEditingShips}>{this.props.ship.name}</p>)}
+                
+                <button onClick={() => this.props.removeShip(this.props.ship.name)}
                 >Delete</button>
         </div>
         )          

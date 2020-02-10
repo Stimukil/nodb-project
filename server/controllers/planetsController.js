@@ -1,10 +1,25 @@
+const axios = require('axios')
 const foundPlanets = []
 
 let id = 0
 
 module.exports = {
+    availablePlanets: (req, res) => {
+        const rand = Math.ceil(Math.random() * 61)
+
+        axios.get(`https://swapi.co/api/planets/${rand}`).then(response => {
+            foundPlanets.push(response.data)
+            res.status(200).send(foundPlanets)            
+        }).catch(err=>console.log(err))
+    },
+
     getFoundPlanets: (req, res) => {
         res.status(200).send(foundPlanets)
+    },
+
+    //get random planet
+    getRandomPlanets: (req, res) => {
+        res.status(200).send(this.getRandomPlanets)
     },
 
     findPlanets: (req, res) => {
@@ -18,23 +33,23 @@ module.exports = {
     },
 
     editPlanetName: (req, res) => {
-        const {id} = req.params
+        const {name: oldName} = req.params
         const {name} = req.body
 
         const index = foundPlanets.findIndex(element => {
-            return element.id === +id
+            return element.name === oldName
         })
-
+        console.log(name)
         foundPlanets[index].name = name
 
         res.status(200).send(foundPlanets)
     }, 
 
     removePlanet: (req, res) => {
-        const {id} = req.params
+        const {name} = req.params
 
         const index = foundPlanets.findIndex(element => {
-            return element.id === +id
+            return element.name === name
         })
 
         foundPlanets.splice(index, 1)
